@@ -71,11 +71,11 @@ class Musica {
 
 
 // Teste simples
-const artista1 = new Artista("Ludmilla", "Pop/Funk");
-const musica1 = new Musica("Socadona", artista1);
+const artista1 = new Artista("Ana Castela", "Sertanejo");
+const musica1 = new Musica("Boiadeira", artista1);
 
-const restaurante1 = new Restaurante("Sabor Brasileiro", "Rua das Flores, 123");
-const prato1 = new Prato("Feijoada", 25.90, "Prato típico com feijão preto e carnes.");
+const restaurante1 = new Restaurante("Sabor Brasileiro", "Alameda das Cajaranas,900");
+const prato1 = new Prato("Feijoada", 25.9, "Prato típico com feijão preto e carnes.");
 
 console.log(restaurante1.exibirInfo());
 console.log(prato1.render());
