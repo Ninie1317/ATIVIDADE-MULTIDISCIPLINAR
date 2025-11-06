@@ -98,3 +98,8 @@ if (app) {
   `;
   app.appendChild(card);
 }
+
+// Entendimento pessoal:
+// As classes permitem organizar o código em objetos, cada um com suas próprias funções.
+// Isso facilita a manutenção e a expansão do projeto.
+// O Copilot ajuda a gerar as estruturas, mas é importante entender o que cada parte faz.
