@@ -5,19 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Atividade Multidisciplinar</title>
     <script>
-      // Se não houver cadastro, envia para a página de cadastro
+      // Verifica cadastro antes de mostrar qualquer conteúdo
       try {
-        if (!localStorage.getItem('usuarioCadastro')) {
+        const raw = localStorage.getItem('usuarioCadastro');
+        if (!raw) {
           window.location.replace('./cadastro.html');
+        } else {
+          window.__usuarioCadastro = JSON.parse(raw);
         }
       } catch (e) { /* ignora problemas com localStorage */ }
     </script>
     <link rel="stylesheet" href="./style.css" />
   </head>
-  <body>
-    <h1>Olá, Connie</h1>
-    <p><a href="./cadastro.html">Ir para cadastro</a></p>
+  <body style="display:none">
     <div id="app"></div>
+    <h1 id="saudacao" class="muted"></h1>
+    <p class="muted"><a href="./cadastro.html">Editar cadastro</a></p>
     <script src="./app.js" defer></script>
+    <script>
+      // Mostra a página só após personalizar com o nome do usuário
+      (function () {
+        const user = window.__usuarioCadastro;
+        if (user && user.nome) {
+          const h1 = document.getElementById('saudacao');
+          if (h1) h1.textContent = `Olá, ${user.nome}`;
+        }
+        // libera a exibição
+        document.body.style.display = '';
+      })();
+    </script>
   </body>
 </html>
