@@ -70,15 +70,61 @@ class Musica {
  // → Assim, podemos reaproveitar a estrutura e relacionar os dados entre si.
 
 
+// Nova classe Bebida representa uma bebida do cardápio
+class Bebida {
+  constructor(nome, preco, tamanhoMl, alcoolica = false) {
+    this.nome = nome;
+    this.preco = preco;
+    this.tamanhoMl = tamanhoMl; // volume em ml
+    this.alcoolica = alcoolica;
+  }
+  render() {
+    return `${this.nome} (${this.tamanhoMl}ml) - R$${this.preco}${this.alcoolica ? ' (Alcoólica)' : ''}`;
+  }
+}
+
+// Classe Cardapio agrega listas de pratos e bebidas
+class Cardapio {
+  constructor(pratos = [], bebidas = []) {
+    this.pratos = pratos;
+    this.bebidas = bebidas;
+  }
+  listarPratos() { return this.pratos.map(p => p.render()).join('<br>'); }
+  listarBebidas() { return this.bebidas.map(b => b.render()).join('<br>'); }
+}
+
+// Copilot, por que criar Bebida e Cardapio?
+ // → Bebida permite reaproveitar estrutura como fizemos em Prato, deixando claro atributos específicos (tamanho, alcoólica).
+ // → Cardapio organiza coleções e centraliza lógica de listagem, evitando código duplicado na renderização.
+
+
 // Teste simples
 const artista1 = new Artista("Ana Castela", "Sertanejo");
 const musica1 = new Musica("Boiadeira", artista1);
 
 const restaurante1 = new Restaurante("Sabor Brasileiro", "Alameda das Cajaranas,900");
-const prato1 = new Prato("Feijoada", 25.9, "Prato típico com feijão preto e carnes.");
+
+// Conjunto variado de pratos
+const pratos = [
+  new Prato("Feijoada", 25.9, "Prato típico com feijão preto e carnes."),
+  new Prato("Moqueca de Peixe", 42.5, "Peixe cozido com leite de coco e dendê."),
+  new Prato("Escondidinho de Carne Seca", 28.0, "Purê de mandioca recheado com carne seca."),
+  new Prato("Pão de Queijo", 12.0, "Porção com 8 unidades crocantes."),
+];
+
+// Opções de bebidas
+const bebidas = [
+  new Bebida("Suco de Maracujá", 8.0, 300, false),
+  new Bebida("Refrigerante", 7.0, 350, false),
+  new Bebida("Água Mineral", 5.0, 500, false),
+  new Bebida("Caipirinha", 18.0, 250, true),
+];
+
+const cardapio = new Cardapio(pratos, bebidas);
 
 console.log(restaurante1.exibirInfo());
-console.log(prato1.render());
+console.log('Pratos:'); pratos.forEach(p => console.log(p.render()));
+console.log('Bebidas:'); bebidas.forEach(b => console.log(b.render()));
 console.log(musica1.tocar());
 
 // Renderização na página
@@ -90,8 +136,11 @@ if (app) {
     <h2>${restaurante1.nome}</h2>
     <p>${restaurante1.exibirInfo()}</p>
 
-    <h3>Prato do dia</h3>
-    <p>${prato1.render()}</p>
+    <h3>Cardápio - Pratos</h3>
+    <p>${cardapio.listarPratos()}</p>
+
+    <h3>Bebidas</h3>
+    <p>${cardapio.listarBebidas()}</p>
 
     <h3>Agora tocando</h3>
     <p>${musica1.tocar()}</p>
