@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cadastro</title>
+  <link rel="stylesheet" href="./style.css" />
+  <style>
+    form { display: flex; flex-direction: column; gap: 1rem; width: min(360px, 100%); }
+    label { display: flex; flex-direction: column; font-weight: 600; gap: .35rem; }
+    input { padding: .6rem .8rem; border: 1px solid #334155; border-radius: 8px; background: #1e293b; color: var(--fg); }
+    input:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+    button { padding: .75rem 1rem; border: none; background: var(--accent); color: #fff; font-weight: 600; border-radius: 8px; cursor: pointer; }
+    button:hover { filter: brightness(1.1); }
+    .msg { margin-top: 1rem; font-size: .9rem; }
+    .card { width: min(420px, 100%); }
+    nav { margin-bottom: 1.5rem; }
+    nav a { color: var(--accent); text-decoration: none; font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <nav><a href="./index.html">← Voltar</a></nav>
+    <h2>Cadastro</h2>
+    <form id="formCadastro" novalidate>
+      <label>Nome
+        <input type="text" name="nome" id="nome" required minlength="2" placeholder="Seu nome" />
+      </label>
+      <label>Email
+        <input type="email" name="email" id="email" required placeholder="seu@email.com" />
+      </label>
+      <label>Senha
+        <input type="password" name="senha" id="senha" required minlength="6" placeholder="mínimo 6 caracteres" />
+      </label>
+      <button type="submit">Cadastrar</button>
+      <div class="msg" id="mensagem"></div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('formCadastro');
+    const msg = document.getElementById('mensagem');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      msg.textContent = '';
+
+      const dados = new FormData(form);
+      const nome = dados.get('nome').trim();
+      const email = dados.get('email').trim();
+      const senha = dados.get('senha');
+
+      const erros = [];
+      if (!nome || nome.length < 2) erros.push('Nome inválido.');
+      if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) erros.push('Email inválido.');
+      if (!senha || senha.length < 6) erros.push('Senha deve ter pelo menos 6 caracteres.');
+
+      if (erros.length) {
+        msg.style.color = '#f87171';
+        msg.textContent = erros.join(' ');
+        return;
+      }
+
+      // Simula armazenamento local
+      const usuario = { nome, email, senha }; // (senha em texto plano apenas para exemplo)
+      localStorage.setItem('usuarioCadastro', JSON.stringify(usuario));
+
+      msg.style.color = '#22c55e';
+      msg.textContent = 'Cadastro realizado com sucesso!';
+      form.reset();
+    });
+  </script>
+</body>
+</html>
