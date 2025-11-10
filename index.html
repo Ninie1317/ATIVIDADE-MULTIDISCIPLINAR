@@ -4,6 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Atividade Multidisciplinar</title>
+    <script>
+      // Se não houver cadastro, envia para a página de cadastro
+      try {
+        if (!localStorage.getItem('usuarioCadastro')) {
+          window.location.replace('./cadastro.html');
+        }
+      } catch (e) { /* ignora problemas com localStorage */ }
+    </script>
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>

@@ -66,7 +66,10 @@
       localStorage.setItem('usuarioCadastro', JSON.stringify(usuario));
 
       msg.style.color = '#22c55e';
-      msg.textContent = 'Cadastro realizado com sucesso!';
+      msg.textContent = 'Cadastro realizado com sucesso! Redirecionando...';
+      setTimeout(() => {
+        window.location.href = './index.html';
+      }, 1200);
       form.reset();
     });
   </script>
